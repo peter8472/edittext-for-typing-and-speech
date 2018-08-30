@@ -127,6 +127,7 @@ public class NavActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+        onOptionsItemSelected(item);
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
