@@ -91,7 +91,9 @@ public class NavActivity extends AppCompatActivity
             // Do something with spokenText??
             EditText t = findViewById(R.id.editText2);
             Editable e = t.getEditableText();
-            e.append(spokenText);
+            int start = t.getSelectionStart();
+            int end = t.getSelectionEnd();
+            e.replace(start,end, spokenText);
             t.setText(e);
         }
     }
