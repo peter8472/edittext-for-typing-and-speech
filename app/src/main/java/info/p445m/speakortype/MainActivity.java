@@ -3,6 +3,7 @@ package info.p445m.speakortype;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.rtp.AudioStream;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
@@ -111,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             Editable e = t.getEditableText();
             e.append(spokenText);
             t.setText(e);
+            //AudioStream v =  new AudioStream()
         }
     }
 

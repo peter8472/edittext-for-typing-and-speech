@@ -1,0 +1,31 @@
+{
+    "UserAgent": "aws-amplify-cli/0.1.0",
+    "Version": "1.0",
+    "IdentityManager": {
+        "Default": {}
+    },
+    "CredentialsProvider": {
+        "CognitoIdentity": {
+            "Default": {
+                "PoolId": "us-east-1:c0d728e3-7ef6-4e87-bdd5-a573ee37c7f0",
+                "Region": "us-east-1"
+            }
+        }
+    },
+    "CognitoUserPool": {
+        "Default": {
+            "PoolId": "us-east-1_6AV4EKryW",
+            "AppClientId": "4bg4sr9s0hm31si2fr595iij1e",
+            "AppClientSecret": "19evko5tusar7ciqor4nqnngvl2nkgcqtor9h238bl28v1lk7osv",
+            "Region": "us-east-1"
+        }
+    },
+    "GoogleSignIn": {
+        "Permissions": "email,profile,openid",
+        "ClientId-WebApp": "425521998823-el4ctlqhb5qkl81clllhnobhdomun725.apps.googleusercontent.com"
+    },
+    "FacebookSignIn": {
+        "AppId": "309427916249997",
+        "Permissions": "public_profile"
+    }
+}

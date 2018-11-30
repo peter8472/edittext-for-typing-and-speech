@@ -19,6 +19,7 @@ android {
         }
     }
     buildToolsVersion '27.0.3'
+    /*
     flavorDimensions "aws"
 
 
@@ -28,6 +29,7 @@ android {
             applicationIdSuffix "aws"
         }
     }
+    */
 }
 
 dependencies {
