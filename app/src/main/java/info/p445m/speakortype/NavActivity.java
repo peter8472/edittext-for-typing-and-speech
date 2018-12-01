@@ -9,6 +9,7 @@ import android.speech.SpeechRecognizer;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.text.Editable;
+import android.util.Log;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -25,6 +26,7 @@ import java.util.List;
 public class NavActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private static final int SPEECH_REQUEST_CODE = 0;
+    public static final String EXTRA_MESSAGE = "info.p445m.speakortype.MESSAGE";
     SpeechRecognizer recog;
 
     @Override
@@ -105,6 +107,17 @@ public class NavActivity extends AppCompatActivity
         if (id == R.id.action_clear) {
             EditText t = findViewById(R.id.editText2);
             t.setText("");
+        }
+        if (id == R.id.action_fullscreen) {
+            Log.e("fullscreen", "fullscreen called");
+            Intent intent = new Intent(this,FullscreenActivity.class);
+            EditText editText = (EditText) findViewById(R.id.editText2);
+            String message = editText.getText().toString();
+            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+            Snackbar.make(editText, "Replace with your own action", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            editText.setText("fullscrren cliockrd");
         }
         if (id == R.id.action_lorem) {
             EditText t = findViewById(R.id.editText2);
