@@ -31,4 +31,10 @@
         android:title="Android recog"
         app:showAsAction="never"
         />
+    <item
+        android:id="@+id/action_record"
+        android:orderInCategory="102"
+        android:title="record"
+        app:showAsAction="never"
+        />
 </menu>

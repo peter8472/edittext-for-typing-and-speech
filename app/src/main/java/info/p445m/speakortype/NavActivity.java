@@ -119,6 +119,15 @@ public class NavActivity extends AppCompatActivity
                         .setAction("Action", null).show();
             editText.setText("fullscrren cliockrd");
         }
+        if (id == R.id.action_record) {
+            //Log.e("fullscreen", "fullscreen called");
+            Intent intent = new Intent(this,Recorder.class);
+            EditText editText = (EditText) findViewById(R.id.editText2);
+            String message = editText.getText().toString();
+            intent.putExtra(EXTRA_MESSAGE, message);
+            startActivity(intent);
+
+        }
         if (id == R.id.action_lorem) {
             EditText t = findViewById(R.id.editText2);
             t.setText(R.string.lorem);
