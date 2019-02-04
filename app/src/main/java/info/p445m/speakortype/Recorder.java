@@ -1,4 +1,8 @@
 package info.p445m.speakortype;
+/*
+code from
+https://developer.android.com/guide/topics/media/mediarecorder
+ */
 
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
