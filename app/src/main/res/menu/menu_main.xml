@@ -7,11 +7,6 @@
         android:title="clear"
         app:showAsAction="ifRoom"
         />
-    <item
-        android:id="@+id/action_viewmessages"
-        android:title="full screen"
-        app:showAsAction="ifRoom"
-        />
 
 
     <item

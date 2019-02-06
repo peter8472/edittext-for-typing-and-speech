@@ -5,6 +5,23 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/action_viewmessages"
+            android:title="view mode"
+
+            />
+        <item
+            android:id="@+id/action_recognize"
+            android:orderInCategory="102"
+            android:title="Android recog"
+
+            />
+        <item
+            android:id="@+id/action_record"
+            android:orderInCategory="102"
+            android:title="record"
+
+            />
+        <item
             android:id="@+id/nav_camera"
             android:icon="@drawable/ic_menu_camera"
             android:title="Import" />

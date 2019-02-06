@@ -27,16 +27,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".oldViewMessagesActivity"
-            android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/title_activity_fullscreen"
-            android:parentActivityName=".NavActivity"
-            android:theme="@style/FullscreenTheme" />
-        <activity
             android:name=".Recorder"
             android:label="@string/title_activity_recorder"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LandscapeActivity" android:theme="@style/AppTheme.NoActionBar"
+        <activity android:name=".LandscapeActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:parentActivityName=".NavActivity"
 
             ></activity>
     </application>
