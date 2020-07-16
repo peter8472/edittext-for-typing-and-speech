@@ -18,14 +18,23 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
+import android.speech.tts.TextToSpeech.Engine;
+import android.speech.tts.*;
+
+
 
 import java.util.List;
 
 public class NavActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+        implements NavigationView.OnNavigationItemSelectedListener,
+        android.speech.tts.TextToSpeech.OnInitListener {
     private static final int SPEECH_REQUEST_CODE = 0;
+    private static final int TALK_CODE = 1;
+    private static final int MY_DATA_CHECK_CODE = 2;
+    private static final String TAG = "speak";
     public static final String EXTRA_MESSAGE = "info.p445m.speakortype.MESSAGE";
     SpeechRecognizer recog;
+    private TextToSpeech myTts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -74,6 +83,11 @@ public class NavActivity extends AppCompatActivity
         intent.putExtra(RecognizerIntent.EXTRA_LANGUAGE_MODEL,RecognizerIntent.LANGUAGE_MODEL_FREE_FORM);
         startActivityForResult(intent, SPEECH_REQUEST_CODE);
     }
+    protected void check_speech() {
+        Intent intent = new Intent();
+        intent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+        startActivityForResult(intent, MY_DATA_CHECK_CODE);
+    }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -88,7 +102,32 @@ public class NavActivity extends AppCompatActivity
             int end = t.getSelectionEnd();
             e.replace(start,end, spokenText);
             t.setText(e);
+        
+
+        } else if (requestCode == MY_DATA_CHECK_CODE) {
+            EditText t = findViewById(R.id.editText2);
+            Editable e = t.getEditableText();
+            int start = t.getSelectionStart();
+            int end = t.getSelectionEnd();
+            if (resultCode ==  android.speech.tts.TextToSpeech.Engine.CHECK_VOICE_DATA_PASS) {
+               e.replace(start,end, "speech is okay");
+                t.setText(e);
+                myTts = new TextToSpeech(this,this);
+            } else {
+                e.replace(start,end, "error in check voice data tts whatever");
+                t.setText(e);
+                Intent installIntent = new Intent();
+                installIntent.setAction(TextToSpeech.Engine.ACTION_INSTALL_TTS_DATA);
+                startActivity(installIntent);
+            }
+        
+
+
+        } else if (requestCode == TALK_CODE  ) {
+            // resultCode ;
+
         }
+
     }
 
     @Override
@@ -146,6 +185,13 @@ public class NavActivity extends AppCompatActivity
 
         if (id == R.id.nav_camera) {
             // Handle the camera action
+            Log.e(TAG, "cam cxhosen");
+            EditText t = findViewById(R.id.editText2);
+            t.setText("started speech");
+            check_speech();
+
+
+
         } else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
@@ -161,6 +207,10 @@ public class NavActivity extends AppCompatActivity
         DrawerLayout drawer = findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+    @Override
+    public void onInit(int status) {
+
     }
 
     @Override

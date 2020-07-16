@@ -32,6 +32,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".LandscapeActivity"
             android:theme="@style/AppTheme.NoActionBar"
+
             android:parentActivityName=".NavActivity"
 
             ></activity>
