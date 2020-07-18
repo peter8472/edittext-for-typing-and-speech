@@ -7,16 +7,31 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".NavActivity"
     tools:showIn="@layout/app_bar_nav">
+
     <EditText
 
         android:id="@+id/editText2"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:text="Hello World!"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/message"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="96dp"
+        android:layout_marginRight="96dp"
+        android:ems="10"
+        android:gravity="start|top"
+        android:inputType="textMultiLine"
+        android:text="message placeholder"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/editText2" />
 
 
 </android.support.constraint.ConstraintLayout>

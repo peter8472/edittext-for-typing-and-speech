@@ -34,7 +34,8 @@ public class NavActivity extends AppCompatActivity
     private static final String TAG = "speak";
     public static final String EXTRA_MESSAGE = "info.p445m.speakortype.MESSAGE";
     SpeechRecognizer recog;
-    private TextToSpeech myTts;
+    private TextToSpeech myTts=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,9 +85,15 @@ public class NavActivity extends AppCompatActivity
         startActivityForResult(intent, SPEECH_REQUEST_CODE);
     }
     protected void check_speech() {
-        Intent intent = new Intent();
-        intent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
-        startActivityForResult(intent, MY_DATA_CHECK_CODE);
+        if (myTts==null){
+             Intent intent = new Intent();
+            intent.setAction(TextToSpeech.Engine.ACTION_CHECK_TTS_DATA);
+            startActivityForResult(intent, MY_DATA_CHECK_CODE);
+        } else {
+            myTts.setLanguage(java.util.Locale.US);
+            String myText = "This is an example";
+            myTts.speak(myText, TextToSpeech.QUEUE_FLUSH, null);
+        }
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -105,7 +112,7 @@ public class NavActivity extends AppCompatActivity
         
 
         } else if (requestCode == MY_DATA_CHECK_CODE) {
-            EditText t = findViewById(R.id.editText2);
+            EditText t = findViewById(R.id.message);
             Editable e = t.getEditableText();
             int start = t.getSelectionStart();
             int end = t.getSelectionEnd();
@@ -186,9 +193,10 @@ public class NavActivity extends AppCompatActivity
         if (id == R.id.nav_camera) {
             // Handle the camera action
             Log.e(TAG, "cam cxhosen");
-            EditText t = findViewById(R.id.editText2);
+            EditText t = findViewById(R.id.message);
             t.setText("started speech");
             check_speech();
+
 
 
 
