@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".Speak"
+            android:label="@string/title_activity_speak"></activity>
+        <activity
             android:name=".NavActivity"
             android:label="@string/title_activity_nav"
             android:theme="@style/AppTheme.NoActionBar"
@@ -30,12 +33,10 @@
             android:name=".Recorder"
             android:label="@string/title_activity_recorder"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".LandscapeActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-
+        <activity
+            android:name=".LandscapeActivity"
             android:parentActivityName=".NavActivity"
-
-            ></activity>
+            android:theme="@style/AppTheme.NoActionBar" />
     </application>
 
 </manifest>

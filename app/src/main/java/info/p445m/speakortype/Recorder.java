@@ -27,6 +27,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import java.io.IOException;
 
@@ -101,6 +102,9 @@ public class Recorder extends AppCompatActivity {
             mRecorder.prepare();
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
+            TextView t= findViewById(R.id.recordlog);
+            t.setText("preparte fail, maybe start called in an invalid state: 4");
+            return;
         }
 
         mRecorder.start();
