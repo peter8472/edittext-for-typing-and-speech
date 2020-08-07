@@ -1,27 +1,31 @@
 package info.p445m.speakortype;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.speech.RecognizerIntent;
 import android.speech.SpeechRecognizer;
-import android.support.design.widget.Snackbar;
+
 import android.text.Editable;
 import android.util.Log;
-import android.support.design.widget.NavigationView;
-import android.support.v4.view.GravityCompat;
-import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarDrawerToggle;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.EditText;
-import android.speech.tts.TextToSpeech.Engine;
+
 import android.speech.tts.*;
 
 
+import androidx.appcompat.app.ActionBarDrawerToggle;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+// two choices for drawerlayout, is this the right one?
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
+
+import com.google.android.material.navigation.NavigationView;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.List;
 
@@ -101,14 +105,19 @@ public class NavActivity extends AppCompatActivity
         if (requestCode == SPEECH_REQUEST_CODE && resultCode == RESULT_OK) {
             List<String> results = data.getStringArrayListExtra(
                     RecognizerIntent.EXTRA_RESULTS);
-            String spokenText = results.get(0);
-            // Do something with spokenText??
-            EditText t = findViewById(R.id.editText2);
-            Editable e = t.getEditableText();
-            int start = t.getSelectionStart();
-            int end = t.getSelectionEnd();
-            e.replace(start,end, spokenText);
-            t.setText(e);
+            String spokenText = null;
+            if (results != null) {
+                spokenText = results.get(0);
+            }
+            if (spokenText  != null) {
+                // Do something with spokenText??
+                EditText t = findViewById(R.id.editText2);
+                Editable e = t.getEditableText();
+                int start = t.getSelectionStart();
+                int end = t.getSelectionEnd();
+                e.replace(start, end, spokenText);
+                t.setText(e);
+            }
         
 
         } else if (requestCode == MY_DATA_CHECK_CODE) {
@@ -143,38 +152,38 @@ public class NavActivity extends AppCompatActivity
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
+        EditText myeditor = findViewById(R.id.editText2);
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
         if (id == R.id.action_clear) {
-            EditText t = findViewById(R.id.editText2);
-            t.setText("");
+            myeditor.setText("");
         }
         if (id == R.id.action_viewmessages) {
             Log.e("", "viewmessages called");
             Intent intent = new Intent(this,LandscapeActivity.class);
-            EditText editText = findViewById(R.id.editText2);
-            String message = editText.getText().toString();
+
+            String message = myeditor.getText().toString();
             intent.putExtra(EXTRA_MESSAGE, message);
             startActivity(intent);
-            Snackbar.make(editText, "Replace with your own action", Snackbar.LENGTH_LONG)
+            Snackbar.make(myeditor, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
             //editText.setText("fullscrren cliockrd");
         }
         if (id == R.id.action_record) {
             //Log.e("fullscreen", "fullscreen called");
             Intent intent = new Intent(this,Recorder.class);
-            EditText editText = findViewById(R.id.editText2);
-            String message = editText.getText().toString();
+
+            String message = myeditor.getText().toString();
             intent.putExtra(EXTRA_MESSAGE, message);
             startActivity(intent);
 
         }
         if (id == R.id.action_lorem) {
-            EditText t = findViewById(R.id.editText2);
-            t.setText(R.string.lorem);
+
+            myeditor.setText(R.string.lorem);
         }
         if (id == R.id.action_recognize) {
             runSpeechRecognizer();
@@ -183,6 +192,7 @@ public class NavActivity extends AppCompatActivity
         return super.onOptionsItemSelected(item);
     }
 
+    @SuppressLint("SetTextI18n")
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -229,7 +239,7 @@ public class NavActivity extends AppCompatActivity
         String mycontent = t.getText().toString();
         SharedPreferences.Editor  editor = sharedPref.edit();
         editor.putString(getString(R.string.content), mycontent);
-        editor.commit();
+        editor.apply();
     }
 
 }

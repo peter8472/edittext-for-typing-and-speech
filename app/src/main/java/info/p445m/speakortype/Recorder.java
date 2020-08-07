@@ -4,30 +4,23 @@ code from
 https://developer.android.com/guide/topics/media/mediarecorder
  */
 
-import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
-import android.view.View;
-
-
-
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v4.app.ActivityCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.AppCompatButton;
+import androidx.core.app.ActivityCompat;
 
 import java.io.IOException;
 
@@ -37,10 +30,8 @@ public class Recorder extends AppCompatActivity {
     private static final int REQUEST_RECORD_AUDIO_PERMISSION = 200;
     private static String mFileName = null;
 
-    private RecordButton mRecordButton = null;
     private MediaRecorder mRecorder = null;
 
-    private PlayButton   mPlayButton = null;
     private MediaPlayer   mPlayer = null;
 
     // Requesting permission to RECORD_AUDIO
@@ -91,6 +82,7 @@ public class Recorder extends AppCompatActivity {
         mPlayer = null;
     }
 
+    @SuppressLint("SetTextI18n")
     private void startRecording() {
         mRecorder = new MediaRecorder();
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
@@ -116,11 +108,12 @@ public class Recorder extends AppCompatActivity {
         mRecorder = null;
     }
 
-    class RecordButton extends  android.support.v7.widget.AppCompatButton{
+    class RecordButton extends AppCompatButton {
 
         boolean mStartRecording = true;
 
         OnClickListener clicker = new OnClickListener() {
+            @SuppressLint("SetTextI18n")
             public void onClick(View v) {
                 onRecord(mStartRecording);
                 if (mStartRecording) {
@@ -132,6 +125,7 @@ public class Recorder extends AppCompatActivity {
             }
         };
 
+        @SuppressLint("SetTextI18n")
         public RecordButton(Context ctx) {
             super(ctx);
             setText("Start recording");
@@ -139,10 +133,11 @@ public class Recorder extends AppCompatActivity {
         }
     }
 
-    class PlayButton extends Button {
+    class PlayButton extends androidx.appcompat.widget.AppCompatButton {
         boolean mStartPlaying = true;
 
         OnClickListener clicker = new OnClickListener() {
+            @SuppressLint("SetTextI18n")
             public void onClick(View v) {
                 onPlay(mStartPlaying);
                 if (mStartPlaying) {
@@ -154,6 +149,7 @@ public class Recorder extends AppCompatActivity {
             }
         };
 
+        @SuppressLint("SetTextI18n")
         public PlayButton(Context ctx) {
             super(ctx);
             setText("Start playing");
@@ -172,13 +168,13 @@ public class Recorder extends AppCompatActivity {
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
         LinearLayout ll = new LinearLayout(this);
-        mRecordButton = new RecordButton(this);
+        RecordButton mRecordButton = new RecordButton(this);
         ll.addView(mRecordButton,
                 new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         0));
-        mPlayButton = new PlayButton(this);
+        PlayButton mPlayButton = new PlayButton(this);
         ll.addView(mPlayButton,
                 new LinearLayout.LayoutParams(
                         ViewGroup.LayoutParams.WRAP_CONTENT,
