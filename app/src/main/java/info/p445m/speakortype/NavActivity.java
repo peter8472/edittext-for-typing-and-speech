@@ -154,7 +154,6 @@ public class NavActivity extends AppCompatActivity
         int id = item.getItemId();
         EditText myeditor = findViewById(R.id.editText2);
 
-        //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
