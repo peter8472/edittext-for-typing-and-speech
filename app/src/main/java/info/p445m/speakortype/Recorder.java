@@ -94,7 +94,7 @@ public class Recorder extends AppCompatActivity {
             mRecorder.prepare();
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
-            TextView t= findViewById(R.id.recordlog);
+            TextView t= findViewById(R.id.outputr);
             t.setText("preparte fail, maybe start called in an invalid state: 4");
             return;
         }

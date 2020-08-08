@@ -37,7 +37,7 @@ public class NavActivity extends AppCompatActivity
     private static final int MY_DATA_CHECK_CODE = 2;
     private static final String TAG = "speak";
     public static final String EXTRA_MESSAGE = "info.p445m.speakortype.MESSAGE";
-    SpeechRecognizer recog;
+    //SpeechRecognizer recog;
     private TextToSpeech myTts=null;
 
 
@@ -52,7 +52,7 @@ public class NavActivity extends AppCompatActivity
         EditText t = findViewById(R.id.editText2);
         String mycontent = sharedPref.getString(getString(R.string.content), "why didn't it work??");
         t.setText(mycontent);
-        recog = SpeechRecognizer.createSpeechRecognizer(this);
+        //recog = SpeechRecognizer.createSpeechRecognizer(this);
 
 
 
