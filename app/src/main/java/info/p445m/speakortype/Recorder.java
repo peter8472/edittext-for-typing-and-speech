@@ -57,6 +57,9 @@ public class Recorder extends AppCompatActivity {
 
     }
     private void snack(CharSequence message) {
+        Snackbar.make(snackbardummy, message, Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+
 
     }
 
@@ -97,9 +100,6 @@ public class Recorder extends AppCompatActivity {
 
         mRecorder = new MediaRecorder();
 
-        Snackbar.make(snackbardummy, "startrecording", Snackbar.LENGTH_LONG)
-                                .setAction("Action", null).show();
-        
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setOutputFile(mFileName);
@@ -107,6 +107,7 @@ public class Recorder extends AppCompatActivity {
 
         try {
             mRecorder.prepare();
+            snack("prepared!");
             
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
@@ -124,54 +125,7 @@ public class Recorder extends AppCompatActivity {
         mRecorder = null;
     }
 
-    class RecordButton extends AppCompatButton {
 
-        boolean mStartRecording = true;
-
-        OnClickListener clicker = new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            public void onClick(View v) {
-//                onRecord(mStartRecording);
-//                if (mStartRecording) {
-//                    setText("Stop recording");
-//                } else {
-//                    setText("Start recording");
-//                }
-//                mStartRecording = !mStartRecording;
-            }
-        };
-
-        @SuppressLint("SetTextI18n")
-        public RecordButton(Context ctx) {
-            super(ctx);
-            setText("Start recording");
-            setOnClickListener(clicker);
-        }
-    }
-
-    class PlayButton extends androidx.appcompat.widget.AppCompatButton {
-        boolean mStartPlaying = true;
-
-        OnClickListener clicker = new OnClickListener() {
-            @SuppressLint("SetTextI18n")
-            public void onClick(View v) {
-                onPlay(mStartPlaying);
-                if (mStartPlaying) {
-                    setText("Stop playing");
-                } else {
-                    setText("Start playing");
-                }
-                mStartPlaying = !mStartPlaying;
-            }
-        };
-
-        @SuppressLint("SetTextI18n")
-        public PlayButton(Context ctx) {
-            super(ctx);
-            setText("Start playing");
-            setOnClickListener(clicker);
-        }
-    }
 
     @Override
     public void onCreate(Bundle icicle) {
@@ -193,20 +147,7 @@ public class Recorder extends AppCompatActivity {
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
-        LinearLayout ll = new LinearLayout(this);
-        RecordButton mRecordButton = new RecordButton(this);
-        ll.addView(mRecordButton,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        0));
-        PlayButton mPlayButton = new PlayButton(this);
-        ll.addView(mPlayButton,
-                new LinearLayout.LayoutParams(
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        ViewGroup.LayoutParams.WRAP_CONTENT,
-                        0));
-//        setContentView(ll);
+
         setContentView(R.layout.activity_recorder);
         Button record = findViewById(R.id.record_button);
         snackbardummy=record;
@@ -223,8 +164,6 @@ public class Recorder extends AppCompatActivity {
                         }
                         mStartRecording = !mStartRecording;
 
-//                        Snackbar.make(view, "Repln action", Snackbar.LENGTH_LONG)
-//                                .setAction("Action", null).show();
                     }
                 }
 
