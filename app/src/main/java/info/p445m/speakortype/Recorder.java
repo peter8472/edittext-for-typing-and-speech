@@ -11,9 +11,11 @@ import android.content.pm.PackageManager;
 import android.media.MediaPlayer;
 import android.media.MediaRecorder;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -21,7 +23,9 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.AppCompatButton;
 import androidx.core.app.ActivityCompat;
+import com.google.android.material.snackbar.Snackbar;
 
+import java.io.File;
 import java.io.IOException;
 
 public class Recorder extends AppCompatActivity {
@@ -33,10 +37,13 @@ public class Recorder extends AppCompatActivity {
     private MediaRecorder mRecorder = null;
 
     private MediaPlayer   mPlayer = null;
+    
 
     // Requesting permission to RECORD_AUDIO
     private boolean permissionToRecordAccepted = false;
     private String [] permissions = {Manifest.permission.RECORD_AUDIO};
+    private boolean mStartRecording=true;
+    private Button snackbardummy;
 
     @Override
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
@@ -47,6 +54,9 @@ public class Recorder extends AppCompatActivity {
                 break;
         }
         if (!permissionToRecordAccepted ) finish();
+
+    }
+    private void snack(CharSequence message) {
 
     }
 
@@ -84,7 +94,12 @@ public class Recorder extends AppCompatActivity {
 
     @SuppressLint("SetTextI18n")
     private void startRecording() {
+
         mRecorder = new MediaRecorder();
+
+        Snackbar.make(snackbardummy, "startrecording", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+        
         mRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);
         mRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
         mRecorder.setOutputFile(mFileName);
@@ -92,6 +107,7 @@ public class Recorder extends AppCompatActivity {
 
         try {
             mRecorder.prepare();
+            
         } catch (IOException e) {
             Log.e(LOG_TAG, "prepare() failed");
             TextView t= findViewById(R.id.outputr);
@@ -115,13 +131,13 @@ public class Recorder extends AppCompatActivity {
         OnClickListener clicker = new OnClickListener() {
             @SuppressLint("SetTextI18n")
             public void onClick(View v) {
-                onRecord(mStartRecording);
-                if (mStartRecording) {
-                    setText("Stop recording");
-                } else {
-                    setText("Start recording");
-                }
-                mStartRecording = !mStartRecording;
+//                onRecord(mStartRecording);
+//                if (mStartRecording) {
+//                    setText("Stop recording");
+//                } else {
+//                    setText("Start recording");
+//                }
+//                mStartRecording = !mStartRecording;
             }
         };
 
@@ -162,8 +178,18 @@ public class Recorder extends AppCompatActivity {
         super.onCreate(icicle);
 
         // Record to the external cache directory for visibility
-        mFileName = getExternalCacheDir().getAbsolutePath();
+        
+        File mycaxhdir = getExternalCacheDir();
+
+        // on kindle getExternalCacheDir always
+        // returns /storage/sdcard1, even when not available
+        // don't know what huawei does
+        if (Environment.getExternalStorageState() != Environment.MEDIA_MOUNTED) {
+            mycaxhdir= getCacheDir();
+        } 
+        mFileName = mycaxhdir.getAbsolutePath();
         mFileName += "/audiorecordtest.3gp";
+        Log.v(LOG_TAG, String.format("output file set to %s", mFileName));
 
         ActivityCompat.requestPermissions(this, permissions, REQUEST_RECORD_AUDIO_PERMISSION);
 
@@ -180,7 +206,33 @@ public class Recorder extends AppCompatActivity {
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         ViewGroup.LayoutParams.WRAP_CONTENT,
                         0));
-        setContentView(ll);
+//        setContentView(ll);
+        setContentView(R.layout.activity_recorder);
+        Button record = findViewById(R.id.record_button);
+        snackbardummy=record;
+        record.setOnClickListener(
+                new View.OnClickListener() {
+                    Button record = findViewById(R.id.record_button);
+                    @Override
+                    public void onClick(View view) {
+                        onRecord(mStartRecording);
+                        if (mStartRecording) {
+                            record.setText("Stop recording");
+                        } else {
+                            record.setText("Start recording");
+                        }
+                        mStartRecording = !mStartRecording;
+
+//                        Snackbar.make(view, "Repln action", Snackbar.LENGTH_LONG)
+//                                .setAction("Action", null).show();
+                    }
+                }
+
+
+        );
+
+
+        
     }
 
     @Override

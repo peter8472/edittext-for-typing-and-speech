@@ -8,18 +8,36 @@
     tools:context=".Recorder"
     tools:showIn="@layout/activity_recorder">
 
+    <Button
+        android:id="@+id/record_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="152dp"
+        android:layout_marginRight="152dp"
+        android:text="statt recordin"
+        app:layout_constraintEnd_toStartOf="@+id/play_button"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/play_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="stsrt playin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <TextView
         android:id="@+id/outputr"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:autoText="false"
         android:background="#DA9E9E"
         android:text="kkjhjhkkkjhjhkkkjhjhkkkjhjhk"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+
+        app:layout_constraintTop_toBottomOf="@+id/record_button"
         app:layout_constraintVertical_bias="1.0"
         tools:text="wrench text" />
 </androidx.constraintlayout.widget.ConstraintLayout>
